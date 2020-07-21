@@ -12,6 +12,7 @@ async def on_ready():
 reddit = praw.Reddit('bot1')
 subreddit = reddit.subreddit('copypasta')
 def refresh():
+    global var
     for submission in subreddit.new(limit=1):
         var = submission.selftext
 
