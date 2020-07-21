@@ -19,15 +19,13 @@ def refresh():
 async def background_loop():
     await client.wait_until_ready()
     while not client.is_closed():
-        for submission in subreddit.hot(limit=1):
+        for submission in subreddit.new(limit=1):
             var = submission.selftext
         channel = client.get_channel(735108850809569311)
-        print('sending message')
-        print(channel)
-        await asyncio.sleep(2)
+        print('sending message in channel: ' + channel)
         await channel.send(var)
         print('sent: ' + var)
-        await asyncio.sleep(5)
+        await asyncio.sleep(1800)
 
 
 client.loop.create_task(background_loop())
