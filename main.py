@@ -13,19 +13,22 @@ reddit = praw.Reddit('bot1')
 subreddit = reddit.subreddit('copypasta')
 def refresh():
     global var
-    
+    for submission in subreddit.new(limit=1):
+        var = submission.selftext
 
 @client.event
 async def background_loop():
     await client.wait_until_ready()
     while not client.is_closed():
-        for submission in subreddit.new(limit=1):
-            var = submission.selftext
+        refresh()
+        if len(var) > 1500:
+            refresh()
         channel = client.get_channel(735108850809569311)
-        print('sending message in channel: ' + channel)
+        print('sending message in channel: ' + str(channel))
         await channel.send(var)
         print('sent: ' + var)
         await asyncio.sleep(1800)
+        refresh()
 
 
 client.loop.create_task(background_loop())
