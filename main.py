@@ -5,14 +5,17 @@ import discord
 import asyncio
 client = discord.Client()
 BOT_TOKEN = ''
+BOT_NAME = 'bot1'
+SUBREDDIT_NAME = 'copypasta'
 
+CHANNEL_ID = 735108850809569311 # copypasta chat on Vibestation discord server
 # Sets up reddit bot and chooses subreddit
 
 def setup():
     global reddit
     global subreddit
-    reddit = praw.Reddit('bot1')
-    subreddit = reddit.subreddit('copypasta')
+    reddit = praw.Reddit(BOT_NAME)
+    subreddit = reddit.subreddit(SUBREDDIT_NAME)
 
 
 setup()
@@ -48,7 +51,7 @@ async def background_loop():
             refresh()
         #If copypasta is shorter than 1500 characters then the copypasta gets sent and the timer resets to 20 minutes before retrying    
         elif len(var) < 1500:
-            channel = client.get_channel(735108850809569311)
+            channel = client.get_channel(CHANNEL_ID)
             print('sending message in channel: ' + str(channel))
             await channel.send(var)
             print('sent: ' + var)
