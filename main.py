@@ -20,6 +20,8 @@ def refresh():
 async def background_loop():
     await client.wait_until_ready()
     while not client.is_closed():
+        global var
+        refresh()
         if len(var) > 1500:
             refresh()
             600
@@ -29,7 +31,6 @@ async def background_loop():
             await channel.send(var)
             print('sent: ' + var)
             await asyncio.sleep(1200)
-            refresh()
 
 
 client.loop.create_task(background_loop())
