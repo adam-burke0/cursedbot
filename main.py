@@ -14,12 +14,18 @@ def setup():
     reddit = praw.Reddit('bot1')
     subreddit = reddit.subreddit('copypasta')
 
+
+setup()
+
 # Gets latest submission from r/copypasta and saves the content to a variable
 
 def refresh():
     global var
     for submission in subreddit.new(limit=1):
         var = submission.selftext
+
+
+
 
 # Prints to console when bot connects
 
